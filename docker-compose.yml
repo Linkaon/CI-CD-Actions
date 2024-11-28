@@ -15,6 +15,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      image: linkaon/ci-cd-actions
     container_name: backend
     restart: always
     ports:
@@ -30,6 +31,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      image: linkaon/ci-cd-actions
       args:
         REACT_APP_API_URL: http://localhost:3001
     container_name: frontend
