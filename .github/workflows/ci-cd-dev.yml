@@ -58,17 +58,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+      # - name: Configure Git
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create Pull Request to Main
-        uses: peter-evans/create-pull-request@v5
-        with:
-          branch: main
-          title: "Merge dev into main"
-          body: |
-            Automatically merging changes from `dev` to `main`.
-          commit-message: "chore: merge dev into main"
-          delete-branch: false
+      # - name: Create Pull Request to Main
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     branch: main
+      #     title: "Merge dev into main"
+      #     body: |
+      #       Automatically merging changes from `dev` to `main`.
+      #     commit-message: "chore: merge dev into main"
+      #     delete-branch: false
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Automated commit from GitHub Actions"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
