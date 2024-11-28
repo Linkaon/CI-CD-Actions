@@ -63,15 +63,15 @@ jobs:
       #     git config user.name "github-actions[bot]"
       #     git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create Pull Request to Main
-        uses: peter-evans/create-pull-request@v5
-        with:
-          branch: main
-          title: "Merge dev into main"
-          body: |
-            Automatically merging changes from `dev` to `main`.
-          commit-message: "chore: merge dev into main"
-          delete-branch: false
+      # - name: Create Pull Request to Main
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     branch: main
+      #     title: "Merge dev into main"
+      #     body: |
+      #       Automatically merging changes from `dev` to `main`.
+      #     commit-message: "chore: merge dev into main"
+      #     delete-branch: false
       - name: Commit and push changes
         run: |
           git config user.name "GitHub Actions"
