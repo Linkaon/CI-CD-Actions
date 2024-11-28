@@ -9,38 +9,31 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Setup Node.js
       - name: Setup Node.js for Frontend
         uses: actions/setup-node@v3
         with:
           node-version: '18-alpine'
 
-      # Step 3: Install Frontend Dependencies
       - name: Install Frontend Dependencies
         working-directory: frontend
         run: npm install
 
-      # Step 4: Run Frontend Tests
       - name: Run Frontend Unit Tests
         working-directory: frontend
         run: npm test
 
-      # Step 5: Setup Node.js for Backend
       - name: Setup Node.js for Backend
         uses: actions/setup-node@v3
         with:
           node-version: '18-alpine'
 
-      # Step 6: Install Backend Dependencies
       - name: Install Backend Dependencies
         working-directory: backend
         run: npm install
 
-      # Step 7: Run Backend Tests
       - name: Run Backend Unit Tests
         working-directory: backend
         run: npm test
@@ -50,11 +43,20 @@ jobs:
     if: success()
     runs-on: ubuntu-latest
     steps:
-      # Step 8: Merge Dev into Main
-      - name: Merge Dev into Main
-        uses: devops-infra/action-merge-branch@v2.5.0
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create Pull Request to Main
+        uses: peter-evans/create-pull-request@v5
         with:
-          type: now
-          source_branch: dev
-          target_branch: main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          title: "Merge dev into main"
+          body: |
+            Automatically merging changes from `dev` to `main`.
+          commit-message: "chore: merge dev into main"
+          delete-branch: false
