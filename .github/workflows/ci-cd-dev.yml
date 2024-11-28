@@ -72,3 +72,5 @@ jobs:
             Automatically merging changes from `dev` to `main`.
           commit-message: "chore: merge dev into main"
           delete-branch: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
